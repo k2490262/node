@@ -1,6 +1,7 @@
 var http = require("http");
 var express = require("express");
 var app = express();
+var member = require("./member.js");
 
 var items=[
   { name:"우유",
@@ -17,7 +18,6 @@ app.use(express.static("public"));
 app.use(express.bodyParser());
 app.use(app.router);
 
-
 app.get("/insertMember", function(request,respone){
   var name = request.param("name");
   var age = request.param("age");
@@ -25,36 +25,8 @@ app.get("/insertMember", function(request,respone){
 
   var doc = {name:name, age:age,addr:addr};
   console.log(doc);
-
-  const MongoClient = require('mongodb').MongoClient;
-    const assert = require('assert');
-
-    // Connection URL
-    const url = 'mongodb://localhost:27017';
-
-    // Database Name
-    const dbName = 'bit';
-
-    // Create a new MongoClient
-    const client = new MongoClient(url);
-
-    // Use connect method to connect to the Server
-    client.connect(function(err, client) {
-    assert.equal(null, err);
-    console.log("Connected correctly to server");
-
-    const db = client.db(dbName);
-
-    // Insert a single document
-    db.collection('member').insertOne(doc, function(err, r) {
-    //  assert.equal(null, err);
-      //assert.equal(1, r.insertedCount);
-      client.close();
-    });
-  });
-
+  member.insertMember(doc);
   respone.send(doc);
-
 })
 // insert 끝.
 
