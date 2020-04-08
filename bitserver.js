@@ -11,6 +11,21 @@ app.use(express.static("public"));
 app.use(express.bodyParser());
 app.use(app.router);
 
+app.get("/blogList", function(request, response){
+  const client = new MongoClient(url);
+  client.connect(function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    const db = client.db(dbName);
+    const col = db.collection('articles');
+        col.find({}).toArray(function(err, docs) {
+        client.close();
+        response.send(docs);
+      });
+  });
+});
+
+
 app.get("/blogInsert", function(request, respone){
   var title = request.param("title");
   var content = request.param("content");
