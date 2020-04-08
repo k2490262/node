@@ -10,7 +10,8 @@
             var listMember = function(){
                 $("#tb").empty();
                 var keyword = $("#keyword").val();
-                $.ajax("member",{data:{keyword: keyword},success:function(data){
+                var cname = $("#cname").val();
+                $.ajax("member",{data:{keyword: keyword, cname:cname},success:function(data){
                   arr = data;
                   $.each(data, function(idx, m){
                       var tr = $("<tr></tr>").attr("idx",idx);
@@ -75,7 +76,10 @@
     <button type="button" id="btnUpdate">수정</button>
     <button type="button" id="btnDelete">삭제</button>
     <hr>
-      주소 : <input type="text" id="keyword">
+      <select id="cname">
+        <option value="name">이름</option>
+        <option value="addr">주소</option>
+      </select> : <input type="text" id="keyword">
       <button type="button" id="btnSearch">검색</button>
     <hr>
     <h2>회원목록</h2>

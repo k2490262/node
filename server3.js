@@ -3,6 +3,9 @@ var express = require("express");
 var app = express();
 var member = require("./member.js");
 
+
+
+
 var items=[
   { name:"우유",
     price:2000
@@ -64,16 +67,26 @@ app.get("/searchMember", function(request,respone){
 })*/
 
 
-
+//member 서비스명을 갖고
+// 모든 회원출력
+// 검색을 사용하려고 합니다.
+// 검색어가 오면 검색을 하고
+// 검색어가 오지 않으면 모든 회원을 find해요.
 app.get("/member", function(request, response){
+
+  const MongoClient = require('mongodb').MongoClient;
+  const RegExp = require('mongodb').RegExp;
+  const assert = require('assert');
+
   var keyword = request.param("keyword");
+  var cname = request.param("cname");
   console.log("검색어"+keyword);
   var doc = {}
   if(keyword != null && keyword != ""){
-    doc = {addr:keyword};
+    doc[cname] = keyword;  
+    console.log(doc);
   }
-  const MongoClient = require('mongodb').MongoClient;
-  const assert = require('assert');
+
 
   // Connection URL
   const url = 'mongodb://localhost:27017';
