@@ -1,0 +1,54 @@
+member
+	name
+	age
+	addr
+
+홍길동 20 서울
+db.member.insert({name:"홍길동",age:20,addr:"서울"})
+db.member.insert({name:"이순신",age:40,addr:"대전"})
+db.member.insert({name:"유관순",age:16,addr:"광주"})
+db.member.insert({name:"김유신",age:50,addr:"인천"})
+db.member.insert({name:"문재인",age:66,addr:"서울"})
+
+
+연습) 모든 회원의 이름을 출력하세요.
+db.member.find({},{name:1,_id:0});
+
+연습) 모든 회원의 이름과 나이를 출력하세요.
+db.member.find({},{name:1,age:1,  _id:0});
+
+연습) 나이가 30살 이상인 회원의 정보를 출력하세요.
+db.member.find({age:{$gte:30}})
+
+연습) 나이가 30살 이상인 회원이 이름,주소를 출력하세요.
+db.member.find({age:{$gte:30}},{name:1, addr:1,_id:0})
+
+
+연습) 서울에 거주하고 나이가 30살 이상인 회원의
+	이름, 주소를 출력하세요
+
+db.member.find({조건식},{보고싶은칼럼});
+db.member.find({addr:"서울",age:{$gte:30} },{name:1,addr:1,_id:0});
+
+
+연습) 나이가 20살이거나 40살이상인 회원의
+	이름,나이,주소를 출력합니다.
+db.member.find({$or:[{age:20},{age:{$gte:40}}]},{name:1,age:1,addr:1,_id:0});
+
+
+연습) 나이가 30살이상인 회원의
+	이름, 나이, 주소를 출력하시오.
+	단. 나이가 높은순으로 출력합니다.
+db.member.find({age:{$gte:30}},{_id:0}).sort({age:-1});
+
+
+
+연습) 나이가 30살이상인 회원의
+	수를 출력하세요.
+db.member.find({age:{$gte:30}}).count();
+db.member.count({age:{$gte:30}});
+
+연습) "유관순"의 나이를 26살로 수정합니다.
+db.member.updateMany();
+
+연습) "문재인"의 정보를 삭제합니다.
