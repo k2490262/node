@@ -9,7 +9,8 @@
           var arr ;
             var listMember = function(){
                 $("#tb").empty();
-                $.ajax("member",{success:function(data){
+                var keyword = $("#keyword").val();
+                $.ajax("member",{data:{keyword: keyword},success:function(data){
                   arr = data;
                   $.each(data, function(idx, m){
                       var tr = $("<tr></tr>").attr("idx",idx);
@@ -50,6 +51,14 @@
               }})
           });
 
+          $("#btnSearch").click(function(){
+              // var keyword = $("#keyword").val();
+              // $.ajax("searchMember",{data:{keyword:keyword}  success:function(data){
+              //
+              // }});
+              listMember();
+          });
+
           listMember();
         });
     </script>
@@ -65,6 +74,9 @@
     <button type="button" id="btnAdd">등록</button>
     <button type="button" id="btnUpdate">수정</button>
     <button type="button" id="btnDelete">삭제</button>
+    <hr>
+      주소 : <input type="text" id="keyword">
+      <button type="button" id="btnSearch">검색</button>
     <hr>
     <h2>회원목록</h2>
     <table border="1" width="80%">

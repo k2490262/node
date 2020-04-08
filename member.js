@@ -1,3 +1,4 @@
+
 module.exports.deleteMember = function(doc, _id){
     const MongoClient = require('mongodb').MongoClient;
     const ObjectID = require('mongodb').ObjectID;

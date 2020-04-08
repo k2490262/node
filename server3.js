@@ -55,35 +55,50 @@ app.get("/deleteMember", function(request,respone){
   respone.send(doc);
 })
 
+/*
+app.get("/searchMember", function(request,respone){
+  var keyword = request.param("keyword");
+  console.log(doc);
+  member.searchMember(keyword);
+  respone.send(doc);
+})*/
+
 
 
 app.get("/member", function(request, response){
-      const MongoClient = require('mongodb').MongoClient;
-    const assert = require('assert');
+  var keyword = request.param("keyword");
+  console.log("검색어"+keyword);
+  var doc = {}
+  if(keyword != null && keyword != ""){
+    doc = {addr:keyword};
+  }
+  const MongoClient = require('mongodb').MongoClient;
+  const assert = require('assert');
 
-    // Connection URL
-    const url = 'mongodb://localhost:27017';
+  // Connection URL
+  const url = 'mongodb://localhost:27017';
 
-    // Database Name
-    const dbName = 'bit';
+  // Database Name
+  const dbName = 'bit';
 
-    // Create a new MongoClient
-    const client = new MongoClient(url);
+  // Create a new MongoClient
+  const client = new MongoClient(url);
 
-    // Use connect method to connect to the Server
-    client.connect(function(err, client) {
-      assert.equal(null, err);
-      console.log("Connected correctly to server");
-      const db = client.db(dbName);
-      const col = db.collection('member');
-        // Get first two documents that match the query
-        col.find({}).toArray(function(err, docs) {
-        //  assert.equal(null, err);
-        //  assert.equal(2, docs.length);
-          client.close();
-          response.send(docs);
-        });
-    });
+  // Use connect method to connect to the Server
+  client.connect(function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    const db = client.db(dbName);
+    const col = db.collection('member');
+      // Get first two documents that match the query
+      col.find(doc).toArray(function(err, docs) {
+      //  assert.equal(null, err);
+      //  assert.equal(2, docs.length);
+        // re = docs;
+        client.close();
+       response.send(docs);
+      });
+  });
 });
 
 app.all("/data.html",function(request, respone){
