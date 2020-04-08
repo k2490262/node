@@ -75,7 +75,6 @@ app.get("/searchMember", function(request,respone){
 app.get("/member", function(request, response){
 
   const MongoClient = require('mongodb').MongoClient;
-  const RegExp = require('mongodb').RegExp;
   const assert = require('assert');
 
   var keyword = request.param("keyword");
@@ -83,7 +82,8 @@ app.get("/member", function(request, response){
   console.log("검색어"+keyword);
   var doc = {}
   if(keyword != null && keyword != ""){
-    doc[cname] = keyword;  
+    doc[cname] = new RegExp(keyword,"i");
+    // doc = {cname:keyword}
     console.log(doc);
   }
 
