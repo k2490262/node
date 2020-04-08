@@ -14,12 +14,15 @@
                   $.each(data, function(idx, m){
                       var tr = $("<tr></tr>").attr("idx",idx);
                       $(tr).click(function(){
-                        var i = $(this).attr("idx");
-                        $("#_id").val(  arr[i]._id  );
-                        $("#name").val(  arr[i].name  );
-                        $("#age").val(  arr[i].age  );
-                        $("#addr").val(  arr[i].addr  );
+                          var i = $(this).attr(idx);
+                          $("#_id").val(  arr[i]._id  );
+                          $("#name").val(  arr[i].name  );
+                          $("#age").val(  arr[i].age  );
+                          $("#addr").val(  arr[i].addr  );
                       });
+                    });
+                  });
+
                       var td1 = $("<td></td>").html(m.name);
                       var td2 = $("<td></td>").html(m.age);
                       var td3 = $("<td></td>").html(m.addr);

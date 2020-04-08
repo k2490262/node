@@ -31,6 +31,31 @@ app.get("/insertMember", function(request,respone){
 // insert 끝.
 
 
+app.get("/updateMember", function(request,respone){
+  var name = request.param("name");
+  var age = request.param("age");
+  var addr = request.param("addr");
+  var _id = request.param("_id");
+
+  var doc = {name:name, age:age,addr:addr};
+  console.log(doc);
+  member.updateMember(doc,_id);
+  respone.send(doc);
+})
+
+app.get("/deleteMember", function(request,respone){
+  var name = request.param("name");
+  var age = request.param("age");
+  var addr = request.param("addr");
+  var _id = request.param("_id");
+
+  var doc = {name:name, age:age,addr:addr};
+  console.log(doc);
+  member.deleteMember(doc,_id);
+  respone.send(doc);
+})
+
+
 
 app.get("/member", function(request, response){
       const MongoClient = require('mongodb').MongoClient;
@@ -59,10 +84,7 @@ app.get("/member", function(request, response){
           response.send(docs);
         });
     });
-
 });
-
-
 
 app.all("/data.html",function(request, respone){
   var output = "";
@@ -115,9 +137,6 @@ app.post("/products", function(request, response){
     console.log(ex);
   }
 });
-
-
-
 
 
 app.all("/data.xml",function(request, respone){
