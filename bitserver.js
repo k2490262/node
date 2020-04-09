@@ -70,6 +70,23 @@ app.get("/blogEdit", function(request, response){
   });
 });
 
+app.get("/blogDelete", function(request, response){
+  var _id = request.param("_id");
+  var doc = {_id:new ObjectID(_id)};
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(dbName);
+    var myquery = { address: 'Mountain 21' };
+    dbo.collection("articles").deleteOne(doc, function(err, obj) {
+      if (err) throw err;
+      console.log("1 document deleted");
+      db.close();
+      response.send("1");
+    });
+  });
+
+})
 
 
 app.get("/blogInsert", function(request, respone){
