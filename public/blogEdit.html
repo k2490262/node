@@ -14,6 +14,15 @@
                 $("#title").val(data.title);
                 $("#content").val(data.content);
             }});
+
+            $("#btnEdit").click(function(){
+                var data = $("#f").serialize();
+                $.ajax("blogEdit",{data:data, success:function(r){
+                    if(r == "1"){
+                      location.href = "dashboard.html";
+                    }
+                }});
+            });
         });
     </script>
   </head>
@@ -34,7 +43,7 @@
               </p>
           </form>
           <p>
-              <button  id="btnSave"  type="button" name="button">Edit</button>
+              <button  id="btnEdit"  type="button" name="button">Edit</button>
           </p>
         </div>
     </div>

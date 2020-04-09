@@ -21,7 +21,7 @@ app.get("/blogDetail", function(request, response){
       var dbo = db.db(dbName);
       dbo.collection("articles").findOne({_id:new ObjectID(_id)}, function(err, result) {
         if (err) throw err;
-        console.log(result);
+      //  console.log(result);
         db.close();
         response.send(result);
       });
@@ -43,6 +43,33 @@ app.get("/blogList", function(request, response){
       });
   });
 });
+
+app.get("/blogEdit", function(request, response){
+  var _id = request.param("_id");
+  var title = request.param("title");
+  var content = request.param("content");
+
+  // var q = {_id:new ObjectID(_id)}
+  var doc = {title:title, content:content}
+
+  console.log("수정할 문서"+doc);
+  console.log("_id:"+_id);
+  console.log("title:"+title);
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(dbName);
+    var myquery = {_id:new ObjectID(_id)};
+    var newvalues = { $set: doc };
+    dbo.collection("articles").updateOne(myquery, newvalues, function(err, res) {
+      if (err) throw err;
+      console.log("1 document updated");
+      db.close();
+      response.send("1");
+    });
+  });
+});
+
 
 
 app.get("/blogInsert", function(request, respone){
