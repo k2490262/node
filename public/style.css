@@ -29,3 +29,56 @@ div#innercontentarea form input[type=text]{
 div#innercontentarea form textarea[name=content]{
   width: 435px;
 }
+
+div#comment-section {
+  border-top: 1px solid #ccc;
+}
+
+div#comment-section form input.commenter_name{
+  width: 200px;
+}
+
+div#comment-section form textarea[name=comment]{
+  width: 255px;
+}
+
+span.input-label {
+  font-weight: bold;
+  padding-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###
