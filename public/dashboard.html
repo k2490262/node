@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var arr;
+            $.ajax("blogList",{success:function(data){
+                arr = data;
+                $.each(arr, function(idx, item){
+                  var td1 = $("<td></td>").html(item.title);
+                  var td2 = $("<td></td>").html(item.saved_at);
+                  var a_view = $("<a></a>").html("View").attr("href", "blogDetail.html?_id="+item._id);
+                  var a_edit = $("<a></a>").html("Edit").attr("href", "blogDetail.html?_id="+item._id);;
+                  var a_delete = $("<a></a>").html("Delete").attr("href", "blogDetail.html?_id="+item._id);;
+                  var td3 = $("<td></td>");
+                  var span1 = $("<span>&nbsp;&nbsp;</span>")
+                  var span2 = $("<span>&nbsp;&nbsp;</span>")
+                  $(td3).append(a_view,span1,a_edit,span2,a_delete);
+
+                  var tr = $("<tr></tr>");
+                  $(tr).append(td1,td2, td3);
+                  $("#tbody").append(tr);
+                });
+            }})
+        });
+    </script>
+  </head>
+  <body>
+      <div id="contentarea">
+        <div id="innercontentarea">
+            <h1>Dashboard</h1>
+            <table class="articles" cellpading="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th width="55%">Title</td>
+                    <th width="27%">Created</td>
+                    <th width="*">Action</td>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+        </div>
+      </div>
+  </body>
+</html>
