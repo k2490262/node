@@ -13,7 +13,12 @@
                 $.each(data, function(idx, item){
                   var h2 = $("<h2></h2>").html(item.title);
                   var p = $("<p></p>").html(  item.content.substr(0,200) + "..." );
-                  var a = $("<a href='#'></a>").html("Read more");
+                  var a = $("<a href='#'></a>").html("Read more").attr("idx",idx);
+                  $(a).click(function(){
+                      var i = $(this).attr("idx");
+                      var _id = arr[i]._id;
+                      location.href = "blogDetail.html?_id="+_id;
+                  });
                   $("#list").append(h2,p,a);
                 });
             }});

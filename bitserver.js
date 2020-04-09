@@ -2,6 +2,7 @@ var http = require("http");
 var express = require("express");
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 const assert = require('assert');
 const url = 'mongodb://localhost:27017';
 const dbName = 'bit';
@@ -10,6 +11,24 @@ var app = express();
 app.use(express.static("public"));
 app.use(express.bodyParser());
 app.use(app.router);
+
+
+app.get("/blogDetail", function(request, response){
+      var _id = request.param("_id");
+
+      MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db(dbName);
+      dbo.collection("articles").findOne({_id:new ObjectID(_id)}, function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+        response.send(result);
+      });
+    });
+});
+
+
 
 app.get("/blogList", function(request, response){
   const client = new MongoClient(url);
